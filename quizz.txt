@@ -1,0 +1,49 @@
+import random
+
+def ask_question(question, options, correct_options):
+    print(question)
+    for i, option in enumerate(options, start=1):
+        print(f"{i}. {option}")
+
+    user_answers = input("Enter the numbers of your answers separated by commas: ")
+    user_answers = set(map(int, user_answers.split(',')))
+
+    if user_answers == set(correct_options):
+        print("Correct!\n")
+        return True
+    else:
+        correct_answers = ", ".join([options[i - 1] for i in correct_options])
+        print(f"Wrong! The correct answer(s) is/are: {correct_answers}\n")
+        return False
+
+def quiz():
+    questions = [
+        {
+            "question": "What are the colors of the French flag?",
+            "options": ["Red", "White", "Blue"],
+            "correct_options": [1, 2, 3]
+        },
+        {
+            "question": "Which programming languages are dynamically typed?",
+            "options": ["Python", "Java", "C++", "JavaScript"],
+            "correct_options": [1, 4]
+        },
+        {
+            "question": "Which animals are mammals?",
+            "options": ["Dog", "Cat", "Bird", "Fish"],
+            "correct_options": [1, 2]
+        }
+    ]
+
+    random.shuffle(questions)
+    score = 0
+
+    for q in questions:
+        if ask_question(q["question"], q["options"], q["correct_options"]):
+            score += 1
+
+    print(f"Your final score: {score}/{len(questions)}")
+
+if __name__ == "__main__":
+    print("Welcome to the Quiz Game!\n")
+    quiz()
